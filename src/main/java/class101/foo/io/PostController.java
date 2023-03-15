@@ -29,11 +29,16 @@ public class PostController {
                 PageRequest.of(page - 1, PAGE_SIZE, Sort.by("id").descending())
         );
     }
-    
 
-    
     // 3. 글 번호로 조회
-    
+    @GetMapping("/posts/{id}")
+    public Post getPostById(@PathVariable("id") Long id) {
+        return postRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("id에 해당하는 게시글이 없습니다.")
+        );
+    }
+
+
     // 4. 글 내용으로 검색 -> 해당 내용이 포함된 모든 글
 
 }
